@@ -6,8 +6,15 @@ class App < Sinatra::Base
     erb :index
   end
 
-  post '/' do
-    @analyzed_text = TextAnalyzer.new(params[:user_text])
-    erb :results
+  post '/student' do
+  @student = Student.new(params[:student])
+
+  params[:student][:courses].each do |details|
+    Course.new(details)
   end
+
+  @courses = Course.all
+
+  erb :student
+end
 end
